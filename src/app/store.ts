@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import testDataReducer from '../features/testData/testDataSlice';
+import perfMeasureReducer from '../features/perfMeasure/perfMeasureSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    testData: testDataReducer,
+    perfMeasure: perfMeasureReducer
   },
 });
 

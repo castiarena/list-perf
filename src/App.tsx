@@ -1,47 +1,73 @@
-import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import logo from "./logo.svg";
-import { Counter } from "./features/counter/Counter";
-import "./App.css";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 
-const Home = ({}) => {
+import "./App.css";
+import { PerfMeasure } from "./features/perfMeasure/perfMeasure";
+import { TestDataList } from "./features/testData/testData";
+
+const MAIN_PATH: string = "/";
+const TEST_PATH: string = "/test-data";
+const PERFORMANCE_PATH: string = "/performance";
+
+const NavBar: React.FC = () => {
+  const location = useLocation();
   return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <Counter />
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
-      <span>
-        <span>Links </span>
-        <Link className="App-link" to="/test-data">
-          Test data
-        </Link>
-        <span> </span>
-        <Link className="App-link" to="/performance">
-          Performance measurements
-        </Link>
-      </span>
-    </header>
+    <span className="menu-container">
+      <Link
+        className={
+          location.pathname === MAIN_PATH ? "route-link active" : "route-link"
+        }
+        to={MAIN_PATH}
+      >
+        Home
+      </Link>
+      <Link
+        className={
+          location.pathname === TEST_PATH ? "route-link active" : "route-link"
+        }
+        to={TEST_PATH}
+      >
+        Test data
+      </Link>
+      <Link
+        className={
+          location.pathname === PERFORMANCE_PATH
+            ? "route-link active"
+            : "route-link"
+        }
+        to={PERFORMANCE_PATH}
+      >
+        Performance measurements
+      </Link>
+    </span>
   );
 };
 
-const TestData = ({}) => {
-  return <div>test data</div>;
-};
-
-const PerfMeasurements = ({}) => {
-  return <div>perf measurments</div>;
+const Home: React.FC = () => {
+  return (
+    <div className="home-container">
+      <span>
+        <p>Welcome to list rendering performance comparison app!</p>
+        <p>
+          Try opening <Link to={TEST_PATH}>test data</Link> page and then check
+          out the <Link to={PERFORMANCE_PATH}>performance measuring</Link>{" "}
+          results
+        </p>
+      </span>
+    </div>
+  );
 };
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="test-data" element={<TestData />} />
-        <Route path="performance" element={<PerfMeasurements />} />
-      </Routes>
+      <header>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="test-data" element={<TestDataList />} />
+          <Route path="performance" element={<PerfMeasure />} />
+        </Routes>
+      </header>
     </div>
   );
 }

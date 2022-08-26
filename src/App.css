@@ -1,39 +1,64 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
+.menu-container {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 20px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
+.menu-container .route-link:not(:first-child) {
+  margin-left: 20px;
 }
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+.menu-container .route-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+}
+
+.menu-container .route-link.active {
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+.menu-container .route-link:hover {
+  text-decoration: underline;
+
+}
+
+.home-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.text-container {
+  margin-left: 20px;
+  overflow-x: scroll;
+  max-height: 300px;
+}
+
+.text-label {
+  margin: 0 20px;
+  font-weight: 600;
+}
+
+.select-list {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.list-container {
+  padding: 20px;
+}
+
+.perf-measures-container {
+  width: 400px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.perf-measures-container span {
+  margin-right: 10px;
+  width: 100%;
 }
