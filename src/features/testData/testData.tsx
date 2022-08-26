@@ -5,6 +5,7 @@ import {
   ProfilerOnRenderCallback,
   useState,
 } from "react";
+import { flushSync } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FixedSizeList as List } from "react-window";
 import { AppDispatch } from "../../app/store";
@@ -64,6 +65,13 @@ export const TestDataList = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [perfCase, setPerfCase] = useState<PerfCase>("reactWindow");
+  const [key, updateKey] = useState<number>(1);
+  const forceUpdate = (times: number) => {
+    if (times > 0) {
+      flushSync(() => updateKey((k) => k + 1));
+      forceUpdate(times - 1);
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -88,13 +96,17 @@ export const TestDataList = () => {
     switch (perfCase) {
       case "reactWindow":
         return (
-          <Profiler id="reactWindowList" onRender={onRender("reactWindow")}>
+          <Profiler
+            key={key}
+            id="reactWindowList"
+            onRender={onRender("reactWindow")}
+          >
             <ReactWindowList data={data} />
           </Profiler>
         );
       case "plainList":
         return (
-          <Profiler id="plainList" onRender={onRender("plainList")}>
+          <Profiler key={key} id="plainList" onRender={onRender("plainList")}>
             <PlainList data={data} />
           </Profiler>
         );
@@ -115,6 +127,10 @@ export const TestDataList = () => {
           <option value={"reactWindow"}>Virtualized list</option>
           <option value={"plainList"}>Plain list</option>
         </select>
+      </div>
+      <div>
+        <span className="text-label">Renders: {key}</span>
+        <button onClick={() => forceUpdate(10)}>Rerender 10 times</button>
       </div>
 
       <div className="list-container">
