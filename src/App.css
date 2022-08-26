@@ -38,6 +38,10 @@
   max-height: 300px;
 }
 
+.stats-container {
+  padding: 10px 0 10px 0;
+}
+
 .text-label {
   margin: 0 20px;
   font-weight: 600;
